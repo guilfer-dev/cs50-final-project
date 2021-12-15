@@ -23,10 +23,7 @@ export default function NavBar({ handleShow }) {
                         </Navbar.Brand>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link onClick={handleShow} >Ask</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="#link">Recommend</Nav.Link>
+                        <Nav.Link onClick={handleShow}>Recommend</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <NavDropdown title="Categories" id="navbarScrollingDropdown">
