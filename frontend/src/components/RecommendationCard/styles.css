@@ -3,11 +3,28 @@
     margin: 0.5rem auto;
 }
 
+.content-preview {
+    padding-bottom: 3rem;
+}
+
 .action-container {
-    flex: 0 0% !important;
+    position: absolute;
+    width: fit-content;
     text-align: center;
+    padding: 0;
+}
+
+.action-container button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.action-container button:hover {
+    color: rgb(200, 170, 20);
 }
 
 .content-container {
-    flex: 1;
+    margin-left: 3rem;
 }

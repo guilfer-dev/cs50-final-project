@@ -5,7 +5,9 @@ import CardBreadCrumb from '../CardBreadCrumb'
 
 import "./styles.css"
 import placeholder from "../../assets/placeholder.png"
-
+const COMMENTS = 100;
+const VOTES = 13;
+const TEXT = "O vídeo fornece uma maneira poderosa de ajudá-lo a provar seu argumento. Ao clicar em Vídeo Online, você pode colar o código de inserção do vídeo que deseja adicionar. Você também pode digitar uma palavra-chave para pesquisar online o vídeo mais adequado ao seu documento.";
 
 export default function RecommendationCard() {
 
@@ -15,29 +17,21 @@ export default function RecommendationCard() {
             <Card.Header>
                 <CardBreadCrumb />
                 <Card.Title>Special title treatment</Card.Title>
-                <div>
-                    <Badge bg="primary">Primary</Badge> {' '}
-                    <Badge bg="success">Success</Badge> {' '}
-                    <Badge bg="danger">Danger</Badge>
-                </div>
             </Card.Header>
             <Card.Body>
-                <Container fluid>
-                    <Row>
-                        <Col className="action-container">
-                            <button className="material-icons upvote">arrow_upward</button>
-                            <span>13</span>
-                            <button className="material-icons downvote">arrow_downward</button>
-                            <button className="material-icons bookmark">bookmark</button>
-                        </Col>
-                        <Col className="content-container">
-                            <Card.Img variant="top" src={placeholder} className="content-preview" />
-                            <p><strong>Why:</strong></p>
-                            <p><strong>Expected spent time:</strong></p>
-                            <button><span className="material-icons">comment</span>100</button>
-                        </Col>
-                    </Row>
-                </Container>
+                <Col className="action-container">
+                    <button className="material-icons upvote">arrow_upward</button>
+                    <span>{VOTES}</span>
+                    <button className="material-icons downvote">arrow_downward</button>
+                    <button className="material-icons bookmark">bookmark</button>
+                    <button className="material-icons comments">comment</button>
+                    <br />
+                    <span >{COMMENTS}</span>
+                </Col>
+                <Col className="content-container">
+                    <Card.Img variant="top" src={placeholder} className="content-preview" />
+                    <p><strong>More about:</strong>{` ${TEXT}`}</p>
+                </Col>
             </Card.Body>
         </Card >
     )

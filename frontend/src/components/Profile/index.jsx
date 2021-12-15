@@ -1,7 +1,11 @@
-
-import { Offcanvas, Button } from 'react-bootstrap'
-
+import { Offcanvas } from 'react-bootstrap'
 import { useState } from 'react'
+
+import "./styles.css"
+
+
+import PROFILEPIC from "../../assets/profile.jpg"
+const NAME = "Giovana"
 
 export default function Profile() {
 
@@ -12,17 +16,28 @@ export default function Profile() {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                Launch
-            </Button>
+            <img onClick={handleShow} src={PROFILEPIC} className='profile-toogle'></img>
 
-            <Offcanvas show={show} onHide={handleClose}>
+            <Offcanvas show={show} onHide={handleClose} placement='end' className="profile">
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                    <Offcanvas.Title>Profile</Offcanvas.Title>
                 </Offcanvas.Header>
-                <Offcanvas.Body>
-                    Some text as placeholder. In real life you can have the elements you
-                    have chosen. Like, text, images, lists, etc.
+                <Offcanvas.Body className="profile-data">
+                    <div className='profile-img'>
+                        <img onClick={handleShow} src={PROFILEPIC} />
+                    </div>
+                    <p><strong>Wellcome {NAME}</strong></p>
+                    <ul>
+                        <li>
+                            <a href="">Bookmarks</a>
+                        </li>
+                        <li>
+                            <a href="">My Contribuitions</a>
+                        </li>
+                        <li>
+                            <a href="">Exit</a>
+                        </li>
+                    </ul>
                 </Offcanvas.Body>
             </Offcanvas>
         </>

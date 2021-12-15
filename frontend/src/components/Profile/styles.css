@@ -1,0 +1,48 @@
+.profile-toogle {
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50% !important;
+    margin: 0.2rem 0 0 1rem;
+    object-fit: cover;
+}
+
+.profile {
+    background-color: #F8F9FA !important;
+}
+
+.profile-img {
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50% !important;
+    object-fit: cover;
+}
+
+.profile-img img {
+    max-width: 100%;
+    display: block;
+    margin: auto;
+}
+
+.profile-data {
+    text-align: center;
+    margin: auto;
+}
+
+.profile-data p {
+    margin-top: 1rem;
+}
+
+.profile-data ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-data li a {
+    text-decoration: none;
+    font-weight: 500;
+    color: black;
+}
