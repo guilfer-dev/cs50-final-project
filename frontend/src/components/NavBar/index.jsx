@@ -5,7 +5,7 @@ import logo from '../../assets/logo.png'
 
 import "./styles.css"
 
-export default function NavBar() {
+export default function NavBar({ handleShow }) {
 
     return (
         <Navbar bg="light">
@@ -23,7 +23,7 @@ export default function NavBar() {
                         </Navbar.Brand>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="#home">Ask</Nav.Link>
+                        <Nav.Link onClick={handleShow} >Ask</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link href="#link">Recommend</Nav.Link>

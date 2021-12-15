@@ -22,7 +22,7 @@ export default function RecommendationCard({ card }) {
             document.getElementById(`youtube-embeded-${card}`).appendChild(embeded)
         }
         getEmbeded()
-    })
+    }, [URL])
 
     return (
 
