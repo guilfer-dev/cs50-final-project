@@ -3,8 +3,19 @@
     margin: 0.5rem auto;
 }
 
-.content-preview {
-    padding-bottom: 3rem;
+.youtube-embeded {
+    height: 36vh;
+    max-width: 64vh;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.youtube-embeded iframe {
+    position: absolute;
+    /* left: 50%; */
+    height: 100%;
+    width: 100%;
+    /* transform: translate(-25%); */
 }
 
 .action-container {

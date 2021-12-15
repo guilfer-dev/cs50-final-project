@@ -14,7 +14,7 @@ function App() {
       <Container>
         <Container>
           <Alert variant="danger" className="mt-2">As by now the app only works with youtube content</Alert>
-          {[1, 2, 3, 4].map(e => <RecommendationCard />)}
+          {[1, 2, 3, 4].map((e, i) => <RecommendationCard key={i} card={i} />)}
         </Container>
       </Container>
     </>
