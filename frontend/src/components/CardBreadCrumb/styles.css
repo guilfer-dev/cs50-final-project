@@ -21,3 +21,11 @@
     color: inherit;
     font-weight: 600;
 }
+
+.current-breadcrum-location {
+    font-size: small;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 400;
+    line-height: 2;
+}

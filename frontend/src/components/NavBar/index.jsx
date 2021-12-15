@@ -29,9 +29,11 @@ export default function NavBar() {
                         <Nav.Link href="#link">Recommend</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey="disabled">
-                            Categories
-                        </Nav.Link>
+                        <NavDropdown title="Categories" id="navbarScrollingDropdown">
+                            <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                            <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
+                            <NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>
+                        </NavDropdown>
                     </Nav.Item>
                 </Nav>
                 <Nav>
