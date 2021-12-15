@@ -4,7 +4,7 @@ import { Container, Alert, Card, Badge } from 'react-bootstrap';
 
 import NavBar from '../../components/NavBar'
 import RecommendationCard from '../../components/RecommendationCard'
-import AskModal from '../../components/AskModal'
+import AskModal from '../../components/RecomendModal'
 
 import './styles.css'
 
