@@ -1,7 +1,9 @@
 
 import { Breadcrumb } from 'react-bootstrap'
 
-export default function BreadCrumb() {
+import "./styles.css"
+
+export default function BreadCrumbGeneral() {
 
     return (
 

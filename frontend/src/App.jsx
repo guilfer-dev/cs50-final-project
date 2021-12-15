@@ -3,7 +3,7 @@ import { Container, Card, Col, Row } from 'react-bootstrap';
 
 import NavBar from './components/NavBar'
 import Profile from './components/Profile'
-import BreadCrumb from './components/BreadCrumb'
+import GeneralBreadCrumb from './components/GeneralBreadCrumb'
 import RecommendationCard from './components/RecommendationCard'
 
 import './App.css'
@@ -15,13 +15,13 @@ function App() {
       <NavBar />
       <Container>
         <Profile />
-        <BreadCrumb />
+        <GeneralBreadCrumb />
         <Row>
           <Col md={8}>
             {[1, 2, 3, 4].map(e => <RecommendationCard />)}
           </Col>
           <Col md={4} >
-            <Card className="my-4">
+          <Card className="my-4">
               NEW
               ====================
               Dinossaur anathomy

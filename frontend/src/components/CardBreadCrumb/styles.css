@@ -1,0 +1,23 @@
+.card-breadcrumb {
+    --bs-breadcrumb-divider: ">";
+}
+
+.card-breadcrumb ol {
+    margin: 0;
+}
+
+.card-breadcrumb li {
+    padding: 0 !important;
+}
+
+.card-breadcrumb li::before {
+    padding: 0 !important;
+}
+
+.card-breadcrumb a {
+    --bs-breadcrumb-divider: ">";
+    font-size: small;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 600;
+}

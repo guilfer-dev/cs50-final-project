@@ -1,1 +1,13 @@
---bs-breadcrumb-divider: ">"
+.upvote, .downvote, .bookmark, .comment {
+    display: block;
+    margin: 0.5rem auto;
+}
+
+.action-container {
+    flex: 0 0% !important;
+    text-align: center;
+}
+
+.content-container {
+    flex: 1;
+}

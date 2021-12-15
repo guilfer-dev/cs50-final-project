@@ -1,19 +1,37 @@
-import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap'
+import { Nav, Navbar, Form, FormControl, Container, Row, Col, Button } from 'react-bootstrap'
+
+import "./styles.css"
 
 export default function NavBar() {
 
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar expand="lg">
             <Container>
-                <Navbar.Brand href="#home">Recomenddit</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="#home">Ask recomendations</Nav.Link>
-                        <Nav.Link href="#link">Recommend something</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
+                <Nav>
+                    <Row>
+                        <Col>
+                            <Navbar.Brand href="#home" >Recomenddit</Navbar.Brand>
+                        </Col>
+                        <Col>
+                            <Nav.Link href="#home">Ask</Nav.Link>
+                        </Col>
+                        <Col>
+                            <Nav.Link href="#link">Recommend</Nav.Link>
+                        </Col>
+                        <Col md="auto">
+                            <Form className="d-flex">
+                                <FormControl
+                                    type="search"
+                                    placeholder="Search"
+                                    className="me-2"
+                                    aria-label="Search"
+                                />
+                                <Button variant="outline-success">Search</Button>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Nav>
             </Container>
-        </Navbar>
+        </Navbar >
     )
 }
