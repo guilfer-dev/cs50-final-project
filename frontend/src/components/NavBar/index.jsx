@@ -37,7 +37,6 @@ export default function NavBar({ handleShow }) {
                     </Nav.Item>
                 </Nav>
                 <Nav>
-
                     <Nav.Item>
                         <Profile className="mr-auto" />
                     </Nav.Item>
