@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Recommendation"
     }],
+    votes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Recommendation"
+    }],
 })
 
 export default mongoose.model("User", userSchema);

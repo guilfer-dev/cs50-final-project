@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken"
 //models
 import Recommendation from "../models/RecommendationModel.js"
 import Category from "../models/CategoryModel.js"
+import youtubeURLParser from "../helpers/youtubeURLParser.js"
 
 export default {
 
@@ -20,7 +21,7 @@ export default {
         }
 
         // define accepted field
-        const fields = ["title", "category", "subcategory", "url", "about", "bookmars"]
+        const fields = ["title", "category", "subcategory", "video", "about", "bookmars"]
 
         // responds client-side if there is invalid field
         for (let item in recommendation) {
@@ -33,8 +34,17 @@ export default {
             }
         }
 
+        recommendation.video = youtubeURLParser(recommendation.video);
+
+        if (!recommendation.video) {
+            return res.status(400).json({
+                msg: "Invalid url format"
+            })
+        }
+
         try {
             const category = await Category.findOne({ name: recommendation.category })
+
 
             if (!category) {
                 return res.status(400).json({

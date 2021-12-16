@@ -1,11 +1,12 @@
-import { Nav, Navbar, Form, FormControl, Container, NavDropdown } from 'react-bootstrap'
+import { useState } from 'react'
+import { Nav, Navbar, Container, NavDropdown } from 'react-bootstrap'
 
 import Profile from '../Profile'
 import logo from '../../assets/logo.png'
 
 import "./styles.css"
 
-export default function NavBar({ handleShow }) {
+export default function NavBar({ handleShow, categories, setCategoryFilter, categoryFilter }) {
 
     return (
         <Navbar bg="light">
@@ -26,10 +27,11 @@ export default function NavBar({ handleShow }) {
                         <Nav.Link onClick={handleShow}>Recommend</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <NavDropdown title="Categories" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>
+                        <NavDropdown title={categoryFilter || "Categories"} activeKey={categoryFilter} onSelect={e => setCategoryFilter(e)}>
+                            <NavDropdown.Item eventKey={"categories"}>{"categories"}</NavDropdown.Item>
+                            {categories.map((category, index) =>
+                                <NavDropdown.Item key={index} eventKey={category.name}>{category.name}</NavDropdown.Item>
+                            )}
                         </NavDropdown>
                     </Nav.Item>
                 </Nav>

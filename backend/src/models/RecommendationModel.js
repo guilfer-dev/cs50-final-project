@@ -7,7 +7,7 @@ const recommendationSchema = new mongoose.Schema({
         ref: "Category"
     },
     subcategory: String,
-    url: String,
+    video: String,
     about: String,
     votes: String,
 })

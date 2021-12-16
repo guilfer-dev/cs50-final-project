@@ -10,16 +10,6 @@ import "./styles.css"
 
 export default function RecommendationCard({ data, index }) {
 
-    useEffect(() => {
-        async function getEmbeded() {
-            const res = await axios.get(`https://www.youtube.com/oembed?url=${data.url}&format=json`)
-            const parser = new DOMParser();
-            const embeded = parser.parseFromString(res.data.html, "text/html").querySelector("iframe")
-            document.getElementById(`youtube-embeded-${index}`).appendChild(embeded)
-        }
-        getEmbeded()
-    }, [data.url])
-
     return (
 
         <Card className="my-4">
@@ -35,7 +25,9 @@ export default function RecommendationCard({ data, index }) {
                     <button className="material-icons bookmark">bookmark</button>
                 </Col>
                 <Col className="content-container">
-                    <div id={`youtube-embeded-${index}`} className="youtube-embeded"></div>
+                    <div className="youtube-embeded">
+                        <iframe src={`https://www.youtube.com/embed/${data.video}`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    </div>
                     <p><strong>More about:</strong>{` ${data.about}`}</p>
                 </Col>
             </Card.Body>

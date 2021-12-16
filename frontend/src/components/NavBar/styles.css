@@ -2,3 +2,7 @@
     flex: 0 0% !important;
     margin: auto 0;
 }
+
+.nav-item a {
+    text-transform: capitalize;
+}

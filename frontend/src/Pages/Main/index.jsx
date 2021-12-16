@@ -11,10 +11,13 @@ import api from "../../services/api.js"
 import './styles.css'
 
 export default function Main() {
+
+  const [categoryFilter, setCategoryFilter] = useState("")
+
   const [show, setShow] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
+  const [shownRecommendations, setShownRecommendations] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [shownCategory, setShownCategory] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [shownSubCategories, setShownSubCategories] = useState([]);
 
@@ -34,13 +37,24 @@ export default function Main() {
     (async () => {
       const { data } = await api.get("/recommendations");
       setRecommendations(data);
+      setShownRecommendations(data);
     })();
 
   }, [])
 
+  useEffect(() => {
+    if (categoryFilter !== "categories") {
+      const filteredCategory = recommendations.filter(e => e.category.name === categoryFilter)
+      console.log(filteredCategory)
+      setShownRecommendations(filteredCategory)
+    } else {
+      setShownRecommendations(recommendations)
+    }
+  }, [categoryFilter])
+
   return (
     <>
-      <NavBar handleShow={handleShow} />
+      <NavBar handleShow={handleShow} categories={categories} setCategoryFilter={setCategoryFilter} categoryFilter={categoryFilter} />
 
       <Container>
         <Alert variant="danger" className="mt-2">As by now the app only works with youtube content</Alert>
@@ -52,7 +66,7 @@ export default function Main() {
             )}
           </div>
         </Card>}
-        {recommendations.map((data, index) => <RecommendationCard key={index} data={data} index={index} />)}
+        {shownRecommendations.map((data, index) => <RecommendationCard key={index} data={data} index={index} />)}
       </Container>
       <AskModal handleClose={handleClose} show={show} />
     </>
