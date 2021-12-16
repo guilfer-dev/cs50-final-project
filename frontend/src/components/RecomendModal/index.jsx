@@ -13,6 +13,10 @@ export default function AskModal({ show, handleClose }) {
             <Modal.Body>
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Title:</Form.Label>
+                            <Form.Control type="text" autoComplete='off' />
+                        </Form.Group>
                         <Form.Label>Categoy/Subcategory:</Form.Label>
                         <Row>
                             <Col>
@@ -36,7 +40,7 @@ export default function AskModal({ show, handleClose }) {
                             <Col>
                                 <Form.Check>
                                     <Form.Check.Input type="checkbox" />
-                                    <Form.Check.Label>New subcategory</Form.Check.Label>
+                                    <Form.Check.Label>New subcategory:</Form.Check.Label>
                                 </Form.Check>
                                 <Form.Control type="text" autoComplete='off' maxlength="15" disabled={true} />
                             </Col>

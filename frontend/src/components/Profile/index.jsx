@@ -7,14 +7,10 @@ import { Offcanvas, Nav, Button } from 'react-bootstrap'
 import { useState } from 'react'
 
 import "./styles.css"
-
-
-import PROFILEPIC from "../../assets/profile.jpg"
 import PLACEHOLDERPIC from "../../assets/not_logged.png"
-const NAME = "Giovana"
-const LOGGED = false;
-const SIGNIN_URL = `https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_GITHUB_CLIENT_ID}`
 export default function Profile() {
+
+    const SIGNIN_URL = `https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_GITHUB_CLIENT_ID}`
 
     const [show, setShow] = useState(false);
     const [user, setUser] = useState({});

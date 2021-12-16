@@ -10,7 +10,6 @@ export default {
     async auth(req, res) {
 
         const { code } = req.body;
-        // console.log(code)
 
         const url = "https://github.com/login/oauth/access_token";
         try {
@@ -34,8 +33,6 @@ export default {
                 }
             });
 
-            // console.log(response)
-
             const {
                 login,
                 id,
@@ -43,8 +40,10 @@ export default {
                 name
             } = response.data
 
+            // check if user already exists in db
             const user = await User.findOne({ github_id: id })
 
+            // if the user do not exists, create one
             if (!user) {
                 user = await User.create({
                     github_id: id,
@@ -54,6 +53,7 @@ export default {
                 })
             }
 
+            // create a token for the logged user
             const token = jwt.sign({
                 github_id: user.github_id,
                 name: user.name
@@ -63,9 +63,12 @@ export default {
                     expiresIn: "1d",
                 }
             )
+
+            // responds the client-side with user data and their new token
             return res.json({ token, user })
         }
         catch (err) {
+            // log and response with error if it is the case
             console.error(err);
             return res.status(401).json({
                 msg: "Something went wrong while trying to authenticate..."
