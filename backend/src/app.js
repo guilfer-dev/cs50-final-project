@@ -16,6 +16,8 @@ app.use(express.json());
 app.post("/auth", AuthController.auth)
 app.post("/recommendations", RecommendationController.store)
 app.post("/categories", CategoryController.store)
+app.get("/categories", CategoryController.index)
+app.get("/recommendations", RecommendationController.index)
 
 const PORT = process.env.PORT || 3333;
 const DB = process.env.DB_URL

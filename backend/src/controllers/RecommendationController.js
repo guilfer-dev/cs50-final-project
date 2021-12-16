@@ -42,8 +42,8 @@ export default {
                 })
             }
 
-            if (!category.subcategory.includes(recommendation.subcategory)) {
-                category.subcategory.push(recommendation.subcategory);
+            if (!category.subcategories.includes(recommendation.subcategory)) {
+                category.subcategories.push(recommendation.subcategory);
                 category.save()
             }
 
@@ -58,6 +58,26 @@ export default {
             console.error(err);
             return res.status(401).json({
                 msg: "Something went wrong while trying to authenticate..."
+            })
+        }
+    },
+
+    async index(req, res) {
+
+        try {
+
+            // create category into db
+            const recommendations = await Recommendation.find({})
+                .populate("category");
+
+            // responds the client-side with user data and their new token
+            return res.json(recommendations)
+        }
+        catch (err) {
+            // log and responds with error if it is the case
+            console.error(err);
+            return res.status(401).json({
+                msg: "Something went wrong while trying to retrieve categories..."
             })
         }
     }

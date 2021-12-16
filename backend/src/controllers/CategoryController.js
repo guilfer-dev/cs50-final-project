@@ -32,7 +32,26 @@ export default {
             // log and responds with error if it is the case
             console.error(err);
             return res.status(401).json({
-                msg: "Something went wrong while trying to authenticate..."
+                msg: "Something went wrong while trying to create the category..."
+            })
+        }
+    },
+
+    async index(req, res) {
+
+        try {
+
+            // create category into db
+            const categories = await Category.find({});
+
+            // responds the client-side with user data and their new token
+            return res.json(categories)
+        }
+        catch (err) {
+            // log and responds with error if it is the case
+            console.error(err);
+            return res.status(401).json({
+                msg: "Something went wrong while trying to retrieve categories..."
             })
         }
     }

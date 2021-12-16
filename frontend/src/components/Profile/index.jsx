@@ -1,16 +1,13 @@
-import axios from "axios"
+import api from "../../services/api.js"
 
-import { useStat, useEffect } from "react"
+import { useState, useEffect } from "react"
 
 
 import { Offcanvas, Nav, Button } from 'react-bootstrap'
-import { useState } from 'react'
 
 import "./styles.css"
 import PLACEHOLDERPIC from "../../assets/not_logged.png"
 export default function Profile() {
-
-    const SIGNIN_URL = `https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_GITHUB_CLIENT_ID}`
 
     const [show, setShow] = useState(false);
     const [user, setUser] = useState({});
@@ -26,7 +23,7 @@ export default function Profile() {
 
             if (url.includes("?code=")) {
                 const [originalURL, code] = url.split("?code=")
-                const response = await axios.post("http://localhost:3333/auth", { code })
+                const response = await api.post("/auth", { code })
                 if (response.status === 200) {
                     setAuthState(true);
                     setUser(response.data.user)
@@ -78,7 +75,7 @@ export default function Profile() {
                             <img onClick={handleShow} src={PLACEHOLDERPIC} />
                         </div>
                         <p><strong>Wellcome</strong></p>
-                        <Button variant="dark" href={SIGNIN_URL}>GitHub Account</Button>
+                        <Button variant="dark" href={import.meta.env.VITE_GITHUB_CLIENT}>GitHub Account</Button>
                     </Offcanvas.Body>
                 </Offcanvas>
             }

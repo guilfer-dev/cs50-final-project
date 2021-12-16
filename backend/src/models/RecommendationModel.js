@@ -6,9 +6,10 @@ const recommendationSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category"
     },
-    subcategoy: String,
+    subcategory: String,
     url: String,
     about: String,
+    votes: String,
 })
 
 export default mongoose.model("Recommendation", recommendationSchema);
