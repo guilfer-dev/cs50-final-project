@@ -12,7 +12,7 @@ import './styles.css'
 
 export default function Main() {
 
-  const [categoryFilter, setCategoryFilter] = useState("")
+  const [categoryFilter, setCategoryFilter] = useState("categories")
 
   const [show, setShow] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
@@ -20,6 +20,7 @@ export default function Main() {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [shownSubCategories, setShownSubCategories] = useState([]);
+  const [filteredSubCategories, setFilteredSubCategories] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -29,9 +30,10 @@ export default function Main() {
     (async () => {
       const { data } = await api.get("/categories");
       setCategories(data);
-      const allSubCategories = data.map(e => e.subcategories);
-      setSubCategories(allSubCategories)
-      setShownSubCategories(allSubCategories)
+      const allSubCategories = data.map(e => e.subcategories).flat();
+      setSubCategories(allSubCategories);
+      setShownSubCategories(allSubCategories);
+      setFilteredSubCategories(allSubCategories);
     })();
 
     (async () => {
@@ -44,25 +46,58 @@ export default function Main() {
 
   useEffect(() => {
     if (categoryFilter !== "categories") {
-      const filteredCategory = recommendations.filter(e => e.category.name === categoryFilter)
-      console.log(filteredCategory)
-      setShownRecommendations(filteredCategory)
+      const filteredCategory = recommendations.filter(e => e.category.name === categoryFilter);
+      const filteredSubCategory = categories.filter(e => e.name === categoryFilter).map(e => e.subcategories).flat();
+      setShownRecommendations(filteredCategory);
+      setShownSubCategories(filteredSubCategory);
+      setFilteredSubCategories(filteredSubCategory);
+
     } else {
-      setShownRecommendations(recommendations)
+      setShownRecommendations(recommendations);
+      setShownSubCategories(subCategories);
+      setFilteredSubCategories(subCategories);
     }
   }, [categoryFilter])
+
+  useEffect(() => {
+    const filteredRecommendation = recommendations.filter(e => {
+      if (categoryFilter !== "categories") {
+        if (e.category.name === categoryFilter &&
+          filteredSubCategories.includes(e.subcategory)) {
+          return true;
+        }
+      } else if (filteredSubCategories.includes(e.subcategory)) {
+        return true;
+      }
+    });
+    setShownRecommendations(filteredRecommendation)
+
+  }, [filteredSubCategories])
+
+  function filterSubCategory(filter, index) {
+
+    console.log(shownSubCategories)
+    console.log(filteredSubCategories.length)
+    if (shownSubCategories.length === filteredSubCategories.length) {
+      setFilteredSubCategories([shownSubCategories[index]])
+    } else if (filteredSubCategories.includes(filter)) {
+      setFilteredSubCategories(filteredSubCategories.filter(subcategory => subcategory !== filter));
+    } else {
+      setFilteredSubCategories([...filteredSubCategories, shownSubCategories[index]])
+    }
+  }
 
   return (
     <>
       <NavBar handleShow={handleShow} categories={categories} setCategoryFilter={setCategoryFilter} categoryFilter={categoryFilter} />
 
       <Container>
-        <Alert variant="danger" className="mt-2">As by now the app only works with youtube content</Alert>
-        {subCategories.length > 0 && <Card>
+        <Alert variant="danger" className="mt-2">Made by Guilherme Fernandes in 2021 as part of Harvard's CS50 final project</Alert>
+        {shownSubCategories.length > 0 && <Card>
           <Card.Title className='text-center mt-2'>Sub-categories</Card.Title>
           <div>
             {shownSubCategories.map((subcategory, index) =>
-              <Badge pill bg="secondary" key={index} className="sub-categories-filter">{subcategory}</Badge>
+              <Badge pill bg={filteredSubCategories.includes(subcategory) ? "primary" : "secondary"} key={index} className="sub-categories-filter" onClick={(e) => filterSubCategory(e.target.textContent, index)}>{subcategory}</Badge>
             )}
           </div>
         </Card>}
