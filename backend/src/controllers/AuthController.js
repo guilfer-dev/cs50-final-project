@@ -65,7 +65,13 @@ export default {
             )
 
             // responds the client-side with user data and their new token
-            return res.json({ token, user })
+            return res.json({
+                token,
+                user: {
+                    name: user.name,
+                    avatar_url: user.avatar_url
+                }
+            })
         }
         catch (err) {
             // log and response with error if it is the case
