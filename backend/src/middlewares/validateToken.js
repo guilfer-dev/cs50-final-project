@@ -1,4 +1,4 @@
-import { verify } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 export default function validateToken(req, res, next) {
 
@@ -6,20 +6,22 @@ export default function validateToken(req, res, next) {
 
     if (!authToken) {
         return res.status(401).json({
-            errorCode: "token.invalid",
+            msg: "You must be logged in in order to post a new recommendation",
         })
     }
 
     const [, token] = authToken.split(" ");
 
     try {
-        const { sub } = verify(token, process.env.JWT_SECRET);
-        req.user_id = sub;
+        const { sub } = jwt.verify(token, process.env.JWT_SECRET);
+        req.userID = sub;
         return next();
 
     } catch (err) {
+        console.error(err);
         return res.status(401).json({
-            errorCode: "token.expired"
+            err,
+            msg: "Authentication Error"
         })
     }
 }

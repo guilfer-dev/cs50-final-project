@@ -4,12 +4,24 @@ import jwt from "jsonwebtoken"
 
 //models
 import Recommendation from "../models/RecommendationModel.js"
+import User from "../models/UserModel.js"
 import Category from "../models/CategoryModel.js"
 import youtubeURLParser from "../helpers/youtubeURLParser.js"
 
 export default {
 
     async store(req, res) {
+
+
+        const userID = req.userID;
+
+        const user = await User.findById(userID);
+
+        if (!user) {
+            return res.status(400).json({
+                msg: "Invalid user"
+            })
+        }
 
         const recommendation = req.body
 
@@ -46,7 +58,6 @@ export default {
         try {
             const category = await Category.findOne({ name: recommendation.category })
 
-
             if (!category) {
                 return res.status(400).json({
                     msg: "Category does not exists"
@@ -60,6 +71,9 @@ export default {
 
             recommendation.category = category;
             const newRecommendation = await Recommendation.create(recommendation);
+
+            user.contributions.push(newRecommendation._id);
+            user.save();
 
             // responds the client-side with user data and their new token
             return res.json(newRecommendation)

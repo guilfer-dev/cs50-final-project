@@ -65,13 +65,10 @@ export default function AskModal({ setShowModal, showModal, recommendations, set
                 about
             };
 
-            await api.post("/recommendations", newRecommendation);
+            const { data } = await api.post("/recommendations", newRecommendation);
 
-            newRecommendation.category = {};
-            newRecommendation.category.name = category;
-            newRecommendation.video = youtubeURLParser(video);
-            setRecommendations([newRecommendation, ...recommendations]);
-            
+            setRecommendations([data, ...recommendations]);
+
             setTitle("");
             setCategory("");
             setSubCategory("");

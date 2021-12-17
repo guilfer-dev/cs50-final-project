@@ -7,6 +7,8 @@ import RecommendationController from "./controllers/RecommendationController.js"
 import CategoryController from "./controllers/CategoryController.js";
 import mongoose from "mongoose";
 
+import validateToken from "./middlewares/validateToken.js";
+
 const app = express();
 
 app.use(cors());
@@ -14,7 +16,7 @@ app.use(express.json());
 // app.use(router);
 
 app.post("/auth", AuthController.auth)
-app.post("/recommendations", RecommendationController.store)
+app.post("/recommendations", validateToken, RecommendationController.store)
 app.post("/categories", CategoryController.store)
 app.get("/categories", CategoryController.index)
 app.get("/recommendations", RecommendationController.index)

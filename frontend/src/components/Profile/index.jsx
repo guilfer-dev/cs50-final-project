@@ -18,13 +18,22 @@ export default function Profile() {
 
     useEffect(() => {
 
+        const url = window.location.href
+        const userStored = localStorage.getItem("user");
+        const tokenStored = localStorage.getItem("token");
         (async () => {
-            const url = window.location.href
 
-            if (url.includes("?code=")) {
+            if (userStored && tokenStored) {
+
+                setAuthState(true);
+                setUser(JSON.parse(userStored));
+
+            } else if (url.includes("?code=")) {
                 const [originalURL, code] = url.split("?code=")
                 const response = await api.post("/auth", { code })
                 if (response.status === 200) {
+                    localStorage.setItem("token", response.data.token)
+                    localStorage.setItem("user", JSON.stringify(response.data.user))
                     setAuthState(true);
                     setUser(response.data.user)
                     window.history.pushState({}, "", originalURL)
