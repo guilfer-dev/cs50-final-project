@@ -69,7 +69,10 @@ export default function Profile() {
                                 <a href="">Contribuitions</a>
                             </li>
                             <li>
-                                <a href="">Exit</a>
+                                <a href="" onClick={() => {
+                                    localStorage.clear();
+                                    location.reload();
+                                }}>Exit</a>
                             </li>
                         </ul>
                     </Offcanvas.Body>

@@ -25,4 +25,4 @@ const PORT = process.env.PORT || 3333;
 const DB = process.env.DB_URL
 
 app.listen(PORT, () => console.log(`🚀 Service is runing on PORT ${PORT}`));
-mongoose.connect(DB).then(() => console.log("Connected to DB"))
+mongoose.connect(DB).then(() => console.log("🗄️  Connected to DB"))
