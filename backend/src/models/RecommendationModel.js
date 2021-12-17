@@ -9,7 +9,7 @@ const recommendationSchema = new mongoose.Schema({
     subcategory: String,
     video: String,
     about: String,
-    votes: String,
+    votes: Number,
 })
 
 export default mongoose.model("Recommendation", recommendationSchema);

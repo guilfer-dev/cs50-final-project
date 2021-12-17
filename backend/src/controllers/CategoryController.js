@@ -9,10 +9,16 @@ export default {
 
     async store(req, res) {
 
-        const { name } = req.body;
+        const { name, password } = req.body;
+
+        if (password !== process.env.ADD_CATTEGORY_PASS) {
+            return res.status(403).json({
+                msg: "Invalid request"
+            });
+        }
 
         // responds client-side if there is more fields than is accepted
-        if (Object.keys(req.body).length !== 1 ||
+        if (Object.keys(req.body).length !== 2 ||
             typeof name !== "string"
         ) {
             return res.status(400).json({
@@ -31,7 +37,8 @@ export default {
         catch (err) {
             // log and responds with error if it is the case
             console.error(err);
-            return res.status(401).json({
+            return res.status(400).json({
+                err: err.code,
                 msg: "Something went wrong while trying to create the category..."
             })
         }

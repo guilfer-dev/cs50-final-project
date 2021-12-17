@@ -41,7 +41,7 @@ export default {
             } = response.data
 
             // check if user already exists in db
-            const user = await User.findOne({ github_id: id })
+            let user = await User.findOne({ github_id: id })
 
             // if the user do not exists, create one
             if (!user) {

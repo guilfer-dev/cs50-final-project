@@ -57,6 +57,7 @@ export default function Main() {
   }, [])
 
   useEffect(() => {
+
     if (categoryFilter !== "categories") {
       const filteredCategory = recommendations.filter(e => e.category.name === categoryFilter);
       const filteredSubCategory = categories.filter(e => e.name === categoryFilter).map(e => e.subcategories).flat();
@@ -99,6 +100,10 @@ export default function Main() {
     }
   }
 
+  function updateSubcategories(newSubCategory) {
+    setSubCategories([...subCategories, newSubCategory])
+  }
+
   return (
     <>
       <NavBar setShowModal={setShowModal} categories={categories} setCategoryFilter={setCategoryFilter} categoryFilter={categoryFilter} />
@@ -115,7 +120,7 @@ export default function Main() {
         </Card>}
         {shownRecommendations.map((data, index) => <RecommendationCard key={index} data={data} index={index} />)}
       </Container>
-      <RecomendModal setShowModal={setShowModal} showModal={showModal} recommendations={recommendations} setRecommendations={setRecommendations} />
+      <RecomendModal setShowModal={setShowModal} showModal={showModal} recommendations={recommendations} setRecommendations={setRecommendations} updateSubcategories={updateSubcategories} />
     </>
   )
 }

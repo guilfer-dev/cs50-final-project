@@ -13,7 +13,7 @@ export default function NavBar({ setShowModal, categories, setCategoryFilter, ca
             <Container>
                 <Nav>
                     <Nav.Item>
-                        <Navbar.Brand href="#home" >
+                        <Navbar.Brand>
                             <img
                                 src={logo}
                                 width="30"
