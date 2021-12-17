@@ -26,7 +26,7 @@ export default function RecommendationCard({ data, index }) {
                 </Col>
                 <Col className="content-container">
                     <div className="youtube-embeded">
-                        <iframe src={`https://www.youtube.com/embed/${data.video}`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                        <iframe src={`https://www.youtube-nocookie.com/embed/${data.video}`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </div>
                     <p><strong>More about:</strong>{` ${data.about}`}</p>
                 </Col>

@@ -13,23 +13,24 @@ export default {
 
         const recommendation = req.body
 
+        // define accepted field
+        const fields = ["title", "category", "subcategory", "video", "about"]
+
         // responds client-side if there is more fields than is accepted
-        if (Object.keys(recommendation).length !== 6) {
+        if (Object.keys(recommendation).length !== fields.length) {
             return res.status(400).json({
-                msg: "Invalid request"
+                msg: "Invalid number of fields"
             })
         }
-
-        // define accepted field
-        const fields = ["title", "category", "subcategory", "video", "about", "bookmars"]
 
         // responds client-side if there is invalid field
         for (let item in recommendation) {
             if (!fields.includes(item) ||
                 typeof recommendation[item] !== "string"
             ) {
+                console.log({ item: recommendation[item] })
                 return res.status(400).json({
-                    msg: "Invalid request"
+                    msg: "Invalid field(s) type(s)"
                 })
             }
         }
@@ -77,7 +78,7 @@ export default {
         try {
 
             // create category into db
-            const recommendations = await Recommendation.find({})
+            const recommendations = await Recommendation.find({}).sort({ _id: "desc" })
                 .populate("category");
 
             // responds the client-side with user data and their new token

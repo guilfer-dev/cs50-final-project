@@ -28,7 +28,7 @@ export default function NavBar({ handleShow, categories, setCategoryFilter, cate
                     </Nav.Item>
                     <Nav.Item>
                         <NavDropdown title={categoryFilter || "Categories"} activeKey={categoryFilter} onSelect={e => setCategoryFilter(e)}>
-                            <NavDropdown.Item eventKey={"categories"}>{"categories"}</NavDropdown.Item>
+                            <NavDropdown.Item eventKey={"categories"}>Categories</NavDropdown.Item>
                             {categories.map((category, index) =>
                                 <NavDropdown.Item key={index} eventKey={category.name}>{category.name}</NavDropdown.Item>
                             )}
