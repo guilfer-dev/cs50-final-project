@@ -1,9 +1,14 @@
 import { Button, Modal, Form, Row, Col, Alert } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 
+import youtubeURLParser from "../../helpers/youtubeURLParser.js"
 import api from "../../services/api.js";
 
-export default function AskModal({ show, handleClose }) {
+export default function AskModal({ setShowModal, showModal, recommendations, setRecommendations }) {
+    // modal
+    function handleClose() {
+        setShowModal(false)
+    };
 
     // error handling
     const [error, setError] = useState("");
@@ -51,19 +56,28 @@ export default function AskModal({ show, handleClose }) {
         evt.preventDefault();
 
         try {
-            await api.post("/recommendations", {
+
+            const newRecommendation = {
                 title,
                 category,
                 subcategory: subCategory,
                 video,
                 about
-            });
+            };
 
+            await api.post("/recommendations", newRecommendation);
+
+            newRecommendation.category = {};
+            newRecommendation.category.name = category;
+            newRecommendation.video = youtubeURLParser(video);
+            setRecommendations([newRecommendation, ...recommendations]);
+            
             setTitle("");
             setCategory("");
             setSubCategory("");
             setVideo("");
             setAbout("");
+            setNewSubCategory(false);
             handleClose();
         }
         catch (err) {
@@ -73,7 +87,7 @@ export default function AskModal({ show, handleClose }) {
 
     return (
         <Modal
-            show={show}
+            show={showModal}
             onHide={handleClose}
             backdrop="static"
         >

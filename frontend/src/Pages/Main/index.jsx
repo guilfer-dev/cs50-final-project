@@ -1,45 +1,57 @@
-
+// import libraries
 import { useState, useEffect } from 'react';
-import { Container, Alert, Card, Badge } from 'react-bootstrap';
 
-import NavBar from '../../components/NavBar'
-import RecommendationCard from '../../components/RecommendationCard'
-import AskModal from '../../components/RecomendModal'
-
+// import connection to api
 import api from "../../services/api.js"
 
+// import components
+import NavBar from '../../components/NavBar'
+import RecommendationCard from '../../components/RecommendationCard'
+import RecomendModal from '../../components/RecomendModal'
+
+// import styles
+import { Container, Alert, Card, Badge } from 'react-bootstrap';
 import './styles.css'
 
 export default function Main() {
 
-  const [categoryFilter, setCategoryFilter] = useState("categories")
+  // new recommmendation modal
+  const [showModal, setShowModal] = useState(false);
 
-  const [show, setShow] = useState(false);
-  const [recommendations, setRecommendations] = useState([]);
-  const [shownRecommendations, setShownRecommendations] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [subCategories, setSubCategories] = useState([]);
-  const [shownSubCategories, setShownSubCategories] = useState([]);
+  // filters
+  const [categoryFilter, setCategoryFilter] = useState("categories")
   const [filteredSubCategories, setFilteredSubCategories] = useState([]);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // api data
+  const [recommendations, setRecommendations] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
 
+  // data shown on screen after filters
+  const [shownRecommendations, setShownRecommendations] = useState([]);
+  const [shownSubCategories, setShownSubCategories] = useState([]);
+
+
+  // fetch data from api
   useEffect(() => {
 
     (async () => {
-      const { data } = await api.get("/categories");
-      setCategories(data);
-      const allSubCategories = data.map(e => e.subcategories).flat();
+      // get list of categoriesF
+      const { data: categoriesFromAPI } = await api.get("/categories");
+      setCategories(categoriesFromAPI);
+
+      // get sucategories from every category
+      const allSubCategories = categoriesFromAPI.map(e => e.subcategories).flat();
       setSubCategories(allSubCategories);
+
+      // set all subcategories to be displayed after the page loads
       setShownSubCategories(allSubCategories);
       setFilteredSubCategories(allSubCategories);
-    })();
 
-    (async () => {
-      const { data } = await api.get("/recommendations");
-      setRecommendations(data);
-      setShownRecommendations(data);
+      // get all recommendations from api and set them to be displayed after the page loads
+      const { data: recommendationFromAPI } = await api.get("/recommendations");
+      setRecommendations(recommendationFromAPI);
+      setShownRecommendations(recommendationFromAPI);
     })();
 
   }, [])
@@ -57,9 +69,10 @@ export default function Main() {
       setShownSubCategories(subCategories);
       setFilteredSubCategories(subCategories);
     }
-  }, [categoryFilter])
+  }, [categoryFilter, recommendations])
 
   useEffect(() => {
+
     const filteredRecommendation = recommendations.filter(e => {
       if (categoryFilter !== "categories") {
         if (e.category.name === categoryFilter &&
@@ -72,7 +85,8 @@ export default function Main() {
     });
     setShownRecommendations(filteredRecommendation)
 
-  }, [filteredSubCategories])
+
+  }, [filteredSubCategories, recommendations])
 
   function filterSubCategory(filter, index) {
 
@@ -87,7 +101,7 @@ export default function Main() {
 
   return (
     <>
-      <NavBar handleShow={handleShow} categories={categories} setCategoryFilter={setCategoryFilter} categoryFilter={categoryFilter} />
+      <NavBar setShowModal={setShowModal} categories={categories} setCategoryFilter={setCategoryFilter} categoryFilter={categoryFilter} />
 
       <Container>
         <Alert variant="danger" className="mt-2">Made by Guilherme Fernandes in 2021 as part of Harvard's CS50 final project</Alert>
@@ -101,7 +115,7 @@ export default function Main() {
         </Card>}
         {shownRecommendations.map((data, index) => <RecommendationCard key={index} data={data} index={index} />)}
       </Container>
-      <AskModal handleClose={handleClose} show={show} />
+      <RecomendModal setShowModal={setShowModal} showModal={showModal} recommendations={recommendations} setRecommendations={setRecommendations} />
     </>
   )
 }

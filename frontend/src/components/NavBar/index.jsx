@@ -6,7 +6,7 @@ import logo from '../../assets/logo.png'
 
 import "./styles.css"
 
-export default function NavBar({ handleShow, categories, setCategoryFilter, categoryFilter }) {
+export default function NavBar({ setShowModal, categories, setCategoryFilter, categoryFilter }) {
 
     return (
         <Navbar bg="light">
@@ -24,7 +24,7 @@ export default function NavBar({ handleShow, categories, setCategoryFilter, cate
                         </Navbar.Brand>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link onClick={handleShow}>Recommend</Nav.Link>
+                        <Nav.Link onClick={() => setShowModal(true)}>Recommend</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <NavDropdown title={categoryFilter || "Categories"} activeKey={categoryFilter} onSelect={e => setCategoryFilter(e)}>
