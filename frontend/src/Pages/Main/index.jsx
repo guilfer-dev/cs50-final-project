@@ -80,7 +80,8 @@ export default function Main() {
     console.log(filteredSubCategories.length)
     if (shownSubCategories.length === filteredSubCategories.length) {
       setFilteredSubCategories([shownSubCategories[index]])
-    } else if (filteredSubCategories.includes(filter)) {
+    }
+    if (filteredSubCategories.includes(filter)) {
       setFilteredSubCategories(filteredSubCategories.filter(subcategory => subcategory !== filter));
     } else {
       setFilteredSubCategories([...filteredSubCategories, shownSubCategories[index]])
