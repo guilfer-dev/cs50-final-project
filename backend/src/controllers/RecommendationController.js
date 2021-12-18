@@ -18,7 +18,7 @@ export default {
         const user = await User.findById(userID);
 
         if (!user) {
-            return res.status(400).json({
+            return res.status(403).json({
                 msg: "Invalid user"
             })
         }
@@ -81,7 +81,8 @@ export default {
         catch (err) {
             // log and responds with error if it is the case
             console.error(err);
-            return res.status(401).json({
+            return res.status(400).json({
+                err,
                 msg: "Something went wrong while trying to authenticate..."
             })
         }
@@ -101,7 +102,69 @@ export default {
         catch (err) {
             // log and responds with error if it is the case
             console.error(err);
-            return res.status(401).json({
+            return res.status(400).json({
+                err,
+                msg: "Something went wrong while trying to retrieve categories..."
+            })
+        }
+    },
+
+    async update(req, res) {
+
+        const userID = req.userID;
+        const user = await User.findById(userID);
+
+        const { action, value } = req.body;
+
+        const { id } = req.params;
+
+        if (!user ||
+            typeof value !== "boolean" ||
+            !id) {
+            return res.status(400).json({
+                msg: "Invalid request"
+            })
+        }
+
+        try {
+
+            // create category into db
+            const recommendations = await Recommendation.findById(id);
+
+            if (action === "votes" && value) {
+                if (recommendations.votes) {
+                    recommendations.votes++;
+                } else {
+                    recommendations.votes = 1;
+                }
+            } else if (action === "votes") {
+                recommendations.votes--;
+            }
+
+            recommendations.save();
+
+            if (value) {
+                user[action].push(recommendations._id);
+            } else {
+                const doc = {};
+                doc[action] = recommendations._id;
+                const result = await user.update({
+                    "$pull":
+                        doc
+                })
+                console.log(result);
+            }
+
+            user.save();
+
+            // responds the client-side with user data and their new token
+            return res.send();
+        }
+        catch (err) {
+            // log and responds with error if it is the case
+            console.error(err);
+            return res.status(400).json({
+                err,
                 msg: "Something went wrong while trying to retrieve categories..."
             })
         }

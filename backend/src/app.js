@@ -5,6 +5,7 @@ import cors from "cors"
 import AuthController from "./controllers/AuthController.js";
 import RecommendationController from "./controllers/RecommendationController.js";
 import CategoryController from "./controllers/CategoryController.js";
+import UserController from "./controllers/UserController.js";
 import mongoose from "mongoose";
 
 import validateToken from "./middlewares/validateToken.js";
@@ -20,6 +21,8 @@ app.post("/recommendations", validateToken, RecommendationController.store)
 app.post("/categories", CategoryController.store)
 app.get("/categories", CategoryController.index)
 app.get("/recommendations", RecommendationController.index)
+app.patch("/recommendations/:id", validateToken, RecommendationController.update)
+app.get("/activity", validateToken, UserController.show)
 
 const PORT = process.env.PORT || 3333;
 const DB = process.env.DB_URL

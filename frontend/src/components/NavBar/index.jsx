@@ -6,7 +6,7 @@ import logo from '../../assets/logo.png'
 
 import "./styles.css"
 
-export default function NavBar({ setShowModal, categories, setCategoryFilter, categoryFilter }) {
+export default function NavBar({ setShowModal, categories, setCategoryFilter, categoryFilter, states }) {
 
     return (
         <Navbar bg="light">
@@ -37,7 +37,7 @@ export default function NavBar({ setShowModal, categories, setCategoryFilter, ca
                 </Nav>
                 <Nav>
                     <Nav.Item>
-                        <Profile className="mr-auto" />
+                        <Profile className="mr-auto" states={states} />
                     </Nav.Item>
                 </Nav>
             </Container >

@@ -26,6 +26,9 @@ export default function Main() {
   const [recommendations, setRecommendations] = useState([]);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
+  const [contributions, setContributions] = useState([]);
+  const [votes, setVotes] = useState([]);
+  const [bookmarks, setBookmarks] = useState([]);
 
   // data shown on screen after filters
   const [shownRecommendations, setShownRecommendations] = useState([]);
@@ -54,6 +57,15 @@ export default function Main() {
       setShownRecommendations(recommendationFromAPI);
     })();
 
+  }, [])
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await api.get("/activity");
+      setContributions(data.contributions);
+      setVotes(data.votes);
+      setBookmarks(data.bookmarks);
+    })();
   }, [])
 
   useEffect(() => {
@@ -118,7 +130,7 @@ export default function Main() {
             )}
           </div>
         </Card>}
-        {shownRecommendations.map((data, index) => <RecommendationCard key={index} data={data} index={index} />)}
+        {shownRecommendations.map((data, index) => <RecommendationCard key={index} data={data} votes={votes} bookmarks={bookmarks} />)}
       </Container>
       <RecomendModal setShowModal={setShowModal} showModal={showModal} recommendations={recommendations} setRecommendations={setRecommendations} updateSubcategories={updateSubcategories} />
     </>

@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Recommendation"
     }],
-    bookmars: [{
+    bookmarks: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Recommendation"
     }],
