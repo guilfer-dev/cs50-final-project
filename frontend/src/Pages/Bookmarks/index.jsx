@@ -15,8 +15,8 @@ export default function contribuitions({ states: {
       <Container>
         {bookmarks && recommendations
           .filter(e => bookmarks.includes(e._id))
-          .map((data, index) =>
-            <RecommendationCard key={index} data={data} votes={votes} bookmarks={bookmarks} />)}
+          .map(data =>
+            <RecommendationCard key={data._id} data={data} votes={votes} bookmarks={bookmarks} />)}
       </Container>
     </>
   )

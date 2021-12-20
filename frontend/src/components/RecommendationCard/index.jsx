@@ -15,6 +15,17 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
     const [bookmark, setBookmark] = useState(false);
     const [error, setError] = useState("");
 
+    useEffect(() => {
+        if (votes.includes(data._id)) {
+            setOwnVote(true);
+        }
+        if (bookmarks.includes(data._id)) {
+            setBookmark(true);
+        }
+
+        setNumberOfVotes(data.votes || 0);
+    }, [votes, bookmarks])
+
     async function castVote() {
         try {
             await api.patch(`/recommendations/${data._id}`, {
@@ -46,17 +57,6 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
         }
     }
 
-    useEffect(() => {
-        if (votes.includes(data._id)) {
-            setOwnVote(true);
-        }
-        if (bookmarks.includes(data._id)) {
-            setBookmark(true);
-        }
-
-        setNumberOfVotes(data.votes || 0);
-    }, [votes, bookmarks])
-
     return (
 
         <Card className="my-4">
@@ -73,7 +73,11 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
                 </Col>
                 <Col className="content-container">
                     <div className="youtube-embeded">
-                        <iframe src={`https://www.youtube-nocookie.com/embed/${data.video}`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                        <iframe src={`https://www.youtube-nocookie.com/embed/${data.video}`}
+                            allowFullScreen
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        ></iframe>
                     </div>
                     <p><strong>More about:</strong>{` ${data.about}`}</p>
                 </Col>

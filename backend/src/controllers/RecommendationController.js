@@ -1,11 +1,9 @@
-//libraries
-import axios from "axios"
-import jwt from "jsonwebtoken"
-
-//models
+// models
 import Recommendation from "../models/RecommendationModel.js"
 import User from "../models/UserModel.js"
 import Category from "../models/CategoryModel.js"
+
+// helpers
 import youtubeURLParser from "../helpers/youtubeURLParser.js"
 
 export default {
