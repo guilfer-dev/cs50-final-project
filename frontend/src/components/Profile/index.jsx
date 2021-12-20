@@ -63,10 +63,10 @@ export default function Profile() {
                         <p><strong>Wellcome{user.name ? `, ${user.name.split(" ")[0]}` : ""}!</strong></p>
                         <ul>
                             <li>
-                                <a href="">Bookmarks</a>
+                                <a href="/bookmarks">Bookmarks</a>
                             </li>
                             <li>
-                                <a href="">Contribuitions</a>
+                                <a href="/contributions">Contribuitions</a>
                             </li>
                             <li>
                                 <a href="" onClick={() => {

@@ -18,15 +18,17 @@ export default function NavBar({ states: {
             <Container>
                 <Nav>
                     <Nav.Item>
-                        <Navbar.Brand>
-                            <img
-                                src={logo}
-                                width="30"
-                                height="30"
-                                className="d-inline-block align-top"
-                                alt="Recommenddit logo"
-                            />
-                        </Navbar.Brand>
+                        <Nav.Link href="/">
+                            <Navbar.Brand>
+                                <img
+                                    src={logo}
+                                    width="30"
+                                    height="30"
+                                    className="d-inline-block align-top"
+                                    alt="Recommenddit logo"
+                                />
+                            </Navbar.Brand>
+                        </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link onClick={() => setShowModal(true)}>Recommend</Nav.Link>

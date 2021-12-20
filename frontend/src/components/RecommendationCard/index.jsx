@@ -10,7 +10,7 @@ import api from "../../services/api";
 
 export default function RecommendationCard({ data, votes, bookmarks }) {
 
-    const [numberOfVotes, setNumberOfVotes] = useState(data.votes);
+    const [numberOfVotes, setNumberOfVotes] = useState(0);
     const [ownVote, setOwnVote] = useState(false);
     const [bookmark, setBookmark] = useState(false);
     const [error, setError] = useState("");
@@ -53,6 +53,8 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
         if (bookmarks.includes(data._id)) {
             setBookmark(true);
         }
+
+        setNumberOfVotes(data.votes || 0);
     }, [votes, bookmarks])
 
     return (

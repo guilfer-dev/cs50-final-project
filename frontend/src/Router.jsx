@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 import {
     BrowserRouter,
     Routes,
-    Route,
-    Navigate
+    Route
 } from "react-router-dom";
+
+import { Alert } from 'react-bootstrap';
 
 // import connection to api
 import api from "./services/api.js"
@@ -15,6 +16,7 @@ import NavBar from './components/NavBar';
 import RecomendModal from './components/RecomendModal'
 import Main from './Pages/Main'
 import Bookmarks from './Pages/Bookmarks'
+import Contributions from './Pages/Contributions'
 
 export default function Router() {
     const [showModal, setShowModal] = useState(false);
@@ -129,6 +131,7 @@ export default function Router() {
                 categories,
                 categoryFilter
             }} />
+            <Alert variant="danger" className="mt-2 text-center">Made by Guilherme Fernandes in 2021 as part of Harvard's CS50 final project.</Alert>
             <Routes>
                 <Route path="/" element={
                     <Main states={{
@@ -142,10 +145,15 @@ export default function Router() {
                 } />
                 <Route path="bookmarks" element={
                     <Bookmarks states={{
-                        shownSubCategories,
-                        filteredSubCategories,
-                        filterSubCategory,
-                        shownRecommendations,
+                        recommendations,
+                        votes,
+                        bookmarks
+                    }} />
+                } />
+                <Route path="contributions" element={
+                    <Contributions states={{
+                        recommendations,
+                        contributions,
                         votes,
                         bookmarks
                     }} />

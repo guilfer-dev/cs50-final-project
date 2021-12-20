@@ -1,3 +1,4 @@
+// import components
 import RecommendationCard from '../../components/RecommendationCard'
 
 // import styles
@@ -6,6 +7,7 @@ import './styles.css'
 
 export default function contribuitions({ states: {
   recommendations,
+  contributions,
   votes,
   bookmarks
 } }) {
@@ -13,8 +15,8 @@ export default function contribuitions({ states: {
   return (
     <>
       <Container>
-        {bookmarks && recommendations
-          .filter(e => bookmarks.includes(e._id))
+        {contributions && recommendations
+          .filter(e => contributions.includes(e._id))
           .map((data, index) =>
             <RecommendationCard key={index} data={data} votes={votes} bookmarks={bookmarks} />)}
       </Container>
