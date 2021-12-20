@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import axios from "axios"
 import { Card, Col, Alert } from 'react-bootstrap';
 
 import CardBreadCrumb from '../CardBreadCrumb'
@@ -21,7 +20,7 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
             await api.patch(`/recommendations/${data._id}`, {
                 action: "votes",
                 value: !ownVote
-            })
+            });
             setOwnVote(!ownVote);
             if (!ownVote) {
                 setNumberOfVotes(numberOfVotes + 1);
@@ -39,7 +38,7 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
             await api.patch(`/recommendations/${data._id}`, {
                 action: "bookmarks",
                 value: !bookmark
-            })
+            });
             setBookmark(!bookmark);
         }
         catch (err) {
@@ -54,7 +53,8 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
         if (bookmarks.includes(data._id)) {
             setBookmark(true);
         }
-    }, [])
+    }, [votes, bookmarks])
+
     return (
 
         <Card className="my-4">

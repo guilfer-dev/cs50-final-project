@@ -152,7 +152,6 @@ export default {
                     "$pull":
                         doc
                 })
-                console.log(result);
             }
 
             user.save();

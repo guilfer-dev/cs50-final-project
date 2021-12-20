@@ -3,7 +3,13 @@ import { useState, useEffect } from 'react';
 
 import api from "../../services/api.js";
 
-export default function AskModal({ setShowModal, showModal, recommendations, setRecommendations, updateSubcategories }) {
+export default function AskModal({ states: {
+    setShowModal,
+    setRecommendations,
+    updateSubcategories,
+    showModal,
+    recommendations
+} }) {
     // modal
     function handleClose() {
         setShowModal(false)
