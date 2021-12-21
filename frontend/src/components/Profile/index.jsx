@@ -9,11 +9,10 @@ import api from "../../services/api.js"
 import PLACEHOLDERPIC from "../../assets/not_logged.png"
 import "./styles.css"
 
-export default function Profile() {
+export default function Profile({ authState, setAuthState }) {
 
     const [show, setShow] = useState(false);
     const [user, setUser] = useState({});
-    const [authState, setAuthState] = useState(false);
 
     function handleModalState() {
         setShow(!show);

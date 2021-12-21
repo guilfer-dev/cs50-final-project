@@ -20,6 +20,7 @@ import Contributions from './Pages/Contributions'
 
 export default function Router() {
 
+    const [authState, setAuthState] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [categories, setCategories] = useState([]);
     const [categoryFilter, setCategoryFilter] = useState("categories");
@@ -73,7 +74,7 @@ export default function Router() {
                 setBookmarks([]);
             }
         })();
-    }, [recommendations]);
+    }, [recommendations, authState]);
 
     // update  what categories are being filtered and list categories
     useEffect(() => {
@@ -126,12 +127,25 @@ export default function Router() {
 
     return (
         <BrowserRouter>
+            {/* render navbar and  */}
             <NavBar states={{
                 setShowModal,
                 setCategoryFilter,
                 categories,
-                categoryFilter
+                categoryFilter,
+                authState,
+                setAuthState
             }} />
+            {authState &&
+                <RecomendModal states={{
+                    setShowModal,
+                    setRecommendations,
+                    updateSubcategories,
+                    showModal,
+                    recommendations,
+                }}
+                />
+            }
             <Alert variant="danger" className="mt-2 text-center">Made by Guilherme Fernandes in 2021 as part of Harvard's CS50 final project.</Alert>
             <Routes>
                 <Route path="/" element={
@@ -161,13 +175,6 @@ export default function Router() {
                 } />
                 <Route path="*" element={<h1 className='text-center'>404 PAGE NOT FOUND</h1>} />
             </Routes>
-            <RecomendModal states={{
-                setShowModal,
-                setRecommendations,
-                updateSubcategories,
-                showModal,
-                recommendations
-            }} />
         </BrowserRouter>
     )
 }
