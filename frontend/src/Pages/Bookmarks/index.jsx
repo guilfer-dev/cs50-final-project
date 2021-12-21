@@ -10,7 +10,9 @@ import './styles.css'
 export default function contribuitions({ states: {
   recommendations,
   votes,
-  bookmarks
+  bookmarks,
+  setVotes,
+  setBookmarks
 } }) {
 
   return (
@@ -20,7 +22,14 @@ export default function contribuitions({ states: {
         {bookmarks && recommendations
           .filter(e => bookmarks.includes(e._id))
           .map(data =>
-            <RecommendationCard key={data._id} data={data} votes={votes} bookmarks={bookmarks} />)}
+            <RecommendationCard key={data._id} states={{
+              data,
+              votes,
+              bookmarks,
+              setVotes,
+              setBookmarks
+            }}
+            />)}
       </Container>
     </>
   )

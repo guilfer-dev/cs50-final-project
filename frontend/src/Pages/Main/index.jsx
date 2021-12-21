@@ -11,7 +11,9 @@ export default function Main({ states: {
   filterSubCategory,
   shownRecommendations,
   votes,
-  bookmarks
+  bookmarks,
+  setVotes,
+  setBookmarks
 } }) {
 
   return (
@@ -25,7 +27,13 @@ export default function Main({ states: {
             )}
           </div>
         </Card>
-        {shownRecommendations && shownRecommendations.map(data => <RecommendationCard key={data._id} data={data} votes={votes} bookmarks={bookmarks} />)}
+        {shownRecommendations && shownRecommendations.map(data => <RecommendationCard key={data._id} states={{
+          data,
+          votes,
+          bookmarks,
+          setVotes,
+          setBookmarks
+        }} />)}
       </Container>
     </>
   )

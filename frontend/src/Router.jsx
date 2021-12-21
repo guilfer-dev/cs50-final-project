@@ -145,6 +145,9 @@ export default function Router() {
                     updateSubcategories,
                     showModal,
                     recommendations,
+                    setContributions,
+                    contributions
+
                 }}
                 />
             }
@@ -157,14 +160,18 @@ export default function Router() {
                         filterSubCategory,
                         shownRecommendations,
                         votes,
-                        bookmarks
+                        bookmarks,
+                        setVotes,
+                        setBookmarks
                     }} />
                 } />
                 <Route path="/bookmarks" element={
                     <Bookmarks states={{
                         recommendations,
                         votes,
-                        bookmarks
+                        bookmarks,
+                        setVotes,
+                        setBookmarks
                     }} />
                 } />
                 <Route path="/contributions" element={
@@ -172,7 +179,9 @@ export default function Router() {
                         recommendations,
                         contributions,
                         votes,
-                        bookmarks
+                        bookmarks,
+                        setVotes,
+                        setBookmarks
                     }} />
                 } />
                 <Route path="*" element={<h1 className='text-center'>404 PAGE NOT FOUND</h1>} />

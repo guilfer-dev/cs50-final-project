@@ -10,7 +10,9 @@ export default function AskModal({ states: {
     setRecommendations,
     updateSubcategories,
     showModal,
-    recommendations
+    recommendations,
+    setContributions,
+    contributions
 } }) {
 
     // error handling
@@ -81,6 +83,7 @@ export default function AskModal({ states: {
             }
 
             setRecommendations([data, ...recommendations]);
+            setContributions([data._id, ...contributions])
 
             handleClose();
         }

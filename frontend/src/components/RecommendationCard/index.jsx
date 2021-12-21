@@ -14,7 +14,13 @@ import api from "../../services/api";
 // sytles
 import "./styles.css"
 
-export default function RecommendationCard({ data, votes, bookmarks }) {
+export default function RecommendationCard({ states: {
+    data,
+    votes,
+    bookmarks,
+    setVotes,
+    setBookmarks
+} }) {
 
     const [numberOfVotes, setNumberOfVotes] = useState(0);
     const [ownVote, setOwnVote] = useState(false);
@@ -29,9 +35,12 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
         if (bookmarks.includes(data._id)) {
             setBookmark(true);
         }
-
-        setNumberOfVotes(data.votes || 0);
     }, [votes, bookmarks, data._id, data.votes])
+
+    useEffect(() => {
+        setNumberOfVotes(data.votes || 0);
+    }, [data.votes])
+
 
     // change the state of the vote to the oposite
     async function castVote() {
@@ -40,12 +49,14 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
                 action: "votes",
                 value: !ownVote
             });
-            setOwnVote(!ownVote);
             if (!ownVote) {
                 setNumberOfVotes(numberOfVotes + 1);
+                setVotes([data._id, ...votes]);
             } else {
                 setNumberOfVotes(numberOfVotes - 1);
+                setVotes(votes.filter(e => e !== data._id));
             }
+            setOwnVote(!ownVote);
         }
         catch (err) {
             setError(err.message);
@@ -59,6 +70,11 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
                 action: "bookmarks",
                 value: !bookmark
             });
+            if (!bookmark) {
+                setBookmarks([data._id, ...bookmarks]);
+            } else {
+                setBookmarks(bookmarks.filter(e => e !== data._id));
+            }
             setBookmark(!bookmark);
         }
         catch (err) {
