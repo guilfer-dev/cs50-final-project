@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/cs50-final-project/static/css/main.98595722.css",
-    "main.js": "/cs50-final-project/static/js/main.d4f23f35.js",
+    "main.js": "/cs50-final-project/static/js/main.82b1205d.js",
     "static/media/not_logged.png": "/cs50-final-project/static/media/not_logged.a9136072d073801df253.png",
     "static/media/logo.png": "/cs50-final-project/static/media/logo.ad07551cf6dc59f1eb74.png",
     "index.html": "/cs50-final-project/index.html",
     "main.98595722.css.map": "/cs50-final-project/static/css/main.98595722.css.map",
-    "main.d4f23f35.js.map": "/cs50-final-project/static/js/main.d4f23f35.js.map"
+    "main.82b1205d.js.map": "/cs50-final-project/static/js/main.82b1205d.js.map"
   },
   "entrypoints": [
     "static/css/main.98595722.css",
-    "static/js/main.d4f23f35.js"
+    "static/js/main.82b1205d.js"
   ]
 }
