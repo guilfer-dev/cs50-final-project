@@ -1,6 +1,6 @@
 // libraries
 import { Nav, Navbar, Container, NavDropdown } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 // components
 import Profile from '../Profile'
@@ -26,7 +26,7 @@ export default function NavBar({ states: {
                 <Nav>
                     <Nav.Item>
                         {/* logo and link to the homepage of the application */}
-                        <Nav.Link href="/">
+                        <Link to="/">
                             <Navbar.Brand>
                                 <img
                                     src={logo}
@@ -36,7 +36,7 @@ export default function NavBar({ states: {
                                     alt="Recommenddit logo"
                                 />
                             </Navbar.Brand>
-                        </Nav.Link>
+                        </Link>
                     </Nav.Item>
                     {/* reveal modal to input a new recommendation if the user is logged in*/}
                     {authState &&

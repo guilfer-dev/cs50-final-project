@@ -1,6 +1,7 @@
 // libraries
 import { useState, useEffect } from "react"
 import { Offcanvas, Nav, Button } from 'react-bootstrap'
+import { Link } from "react-router-dom";
 
 // api service
 import api from "../../services/api.js"
@@ -65,10 +66,10 @@ export default function Profile({ authState, setAuthState }) {
                         <p><strong>Wellcome{user.name ? `, ${user.name.split(" ")[0]}` : ""}!</strong></p>
                         <ul>
                             <li>
-                                <a href="/bookmarks">Bookmarks</a>
+                                <Link to="/bookmarks">Bookmarks</Link>
                             </li>
                             <li>
-                                <a href="/contributions">Contribuitions</a>
+                                <Link to="/contributions">Contribuitions</Link>
                             </li>
                             <li>
                                 <Button variant="danger py-0 mt-2" onClick={() => {
