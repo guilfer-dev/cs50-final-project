@@ -1,13 +1,17 @@
+// libraries
 import { Button, Modal, Form, Row, Col, Alert } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 
+// api service
 import api from "../../services/api.js";
 
-export default function AskModal({ setShowModal, showModal, recommendations, setRecommendations, updateSubcategories }) {
-    // modal
-    function handleClose() {
-        setShowModal(false)
-    };
+export default function AskModal({ states: {
+    setShowModal,
+    setRecommendations,
+    updateSubcategories,
+    showModal,
+    recommendations
+} }) {
 
     // error handling
     const [error, setError] = useState("");
@@ -23,6 +27,7 @@ export default function AskModal({ setShowModal, showModal, recommendations, set
     const [video, setVideo] = useState("");
     const [about, setAbout] = useState("");
 
+    // loads available categories and subcategories from api
     useEffect(() => {
         (async () => {
             const { data } = await api.get("/categories");
@@ -30,6 +35,7 @@ export default function AskModal({ setShowModal, showModal, recommendations, set
         })();
     }, [])
 
+    // refresh subcategory options when a new category is picked
     function handleSelectCategory(value) {
         setCategory(value);
         if (value) {
@@ -39,6 +45,7 @@ export default function AskModal({ setShowModal, showModal, recommendations, set
         }
     }
 
+    // clear possible previous state for the subcategory and block oposite (new or old subcategory) fields
     function handleNewCategory() {
         setSubCategory("")
         if (newSubCategory) {
@@ -48,7 +55,6 @@ export default function AskModal({ setShowModal, showModal, recommendations, set
             setNewSubCategory(true)
             setSubCategories([])
         }
-
     }
 
     async function handleSubmit(evt) {
@@ -56,6 +62,7 @@ export default function AskModal({ setShowModal, showModal, recommendations, set
 
         try {
 
+            // define data that will be sent  to the api
             const newRecommendation = {
                 title,
                 category,
@@ -64,7 +71,10 @@ export default function AskModal({ setShowModal, showModal, recommendations, set
                 about
             };
 
+            /* send data from the api and get the information to add to the list without the need to
+            without the need to make a new call to the api */
             const { data } = await api.post("/recommendations", newRecommendation);
+
 
             if (newSubCategory) {
                 updateSubcategories(data.subcategory)
@@ -72,13 +82,6 @@ export default function AskModal({ setShowModal, showModal, recommendations, set
 
             setRecommendations([data, ...recommendations]);
 
-
-            setTitle("");
-            setCategory("");
-            setSubCategory("");
-            setVideo("");
-            setAbout("");
-            setNewSubCategory(false);
             handleClose();
         }
         catch (err) {
@@ -87,7 +90,19 @@ export default function AskModal({ setShowModal, showModal, recommendations, set
         }
     }
 
+    // reset the states and close the model
+    function handleClose() {
+        setTitle("");
+        setCategory("");
+        setSubCategory("");
+        setVideo("");
+        setAbout("");
+        setNewSubCategory(false);
+        setShowModal(false)
+    };
+
     return (
+        // render the form with all fields necessary to create a new recommendation
         <Modal
             show={showModal}
             onHide={handleClose}

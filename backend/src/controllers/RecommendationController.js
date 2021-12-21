@@ -1,17 +1,14 @@
-//libraries
-import axios from "axios"
-import jwt from "jsonwebtoken"
-
-//models
+// models
 import Recommendation from "../models/RecommendationModel.js"
 import User from "../models/UserModel.js"
 import Category from "../models/CategoryModel.js"
+
+// helpers
 import youtubeURLParser from "../helpers/youtubeURLParser.js"
 
 export default {
 
     async store(req, res) {
-
 
         const userID = req.userID;
 
@@ -47,6 +44,7 @@ export default {
             }
         }
 
+        // parse url provided as only the code
         recommendation.video = youtubeURLParser(recommendation.video);
 
         if (!recommendation.video) {
@@ -55,6 +53,7 @@ export default {
             })
         }
 
+        // get category from db
         try {
             const category = await Category.findOne({ name: recommendation.category })
 
@@ -72,6 +71,7 @@ export default {
             recommendation.category = category;
             const newRecommendation = await Recommendation.create(recommendation);
 
+            //save new contribution to the user who potested it
             user.contributions.push(newRecommendation._id);
             user.save();
 
@@ -131,6 +131,7 @@ export default {
             // create category into db
             const recommendations = await Recommendation.findById(id);
 
+            // only increase the number of votes if its value is true
             if (action === "votes" && value) {
                 if (recommendations.votes) {
                     recommendations.votes++;
@@ -143,6 +144,7 @@ export default {
 
             recommendations.save();
 
+            // push the id of voted/bookmarked recommendation to the user who made the action
             if (value) {
                 user[action].push(recommendations._id);
             } else {
@@ -152,12 +154,11 @@ export default {
                     "$pull":
                         doc
                 })
-                console.log(result);
             }
 
             user.save();
 
-            // responds the client-side with user data and their new token
+            // responds the client-side if everything goes right
             return res.send();
         }
         catch (err) {
@@ -165,7 +166,7 @@ export default {
             console.error(err);
             return res.status(400).json({
                 err,
-                msg: "Something went wrong while trying to retrieve categories..."
+                msg: "Something went wrong while trying cast vote/bookmark..."
             })
         }
     }

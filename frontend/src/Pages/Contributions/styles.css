@@ -1,0 +1,15 @@
+.recommendation-card {
+    width: fit-content;
+}
+
+.sub-categories-filter {
+    cursor: pointer;
+    width: fit-content;
+    margin: 0.3rem;
+    user-select: none
+}
+
+.more-categories-option {
+    cursor: pointer;
+    font-size: small;
+}

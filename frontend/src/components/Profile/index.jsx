@@ -1,21 +1,24 @@
-import api from "../../services/api.js"
-
+// libraries
 import { useState, useEffect } from "react"
-
-
 import { Offcanvas, Nav, Button } from 'react-bootstrap'
 
-import "./styles.css"
+// api service
+import api from "../../services/api.js"
+
+// styles
 import PLACEHOLDERPIC from "../../assets/not_logged.png"
-export default function Profile() {
+import "./styles.css"
+
+export default function Profile({ authState, setAuthState }) {
 
     const [show, setShow] = useState(false);
     const [user, setUser] = useState({});
-    const [authState, setAuthState] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    function handleModalState() {
+        setShow(!show);
+    }
 
+    // verify if user has login information from localstorage
     useEffect(() => {
 
         const url = window.location.href
@@ -23,11 +26,13 @@ export default function Profile() {
         const tokenStored = localStorage.getItem("token");
         (async () => {
 
+            // sets user data from the localstorage
             if (userStored && tokenStored) {
 
                 setAuthState(true);
                 setUser(JSON.parse(userStored));
 
+                // brings user data from the api, the code needed to get a token comes as a parameter in the url
             } else if (url.includes("?code=")) {
                 const [originalURL, code] = url.split("?code=")
                 const response = await api.post("/auth", { code })
@@ -36,6 +41,7 @@ export default function Profile() {
                     localStorage.setItem("user", JSON.stringify(response.data.user))
                     setAuthState(true);
                     setUser(response.data.user)
+                    // hides the code from the the user once the login is done
                     window.history.pushState({}, "", originalURL)
                 }
             }
@@ -44,29 +50,26 @@ export default function Profile() {
     }, [])
 
 
-    return (
-        <>
-            {authState ?
-                <img onClick={handleShow} src={user.avatar_url} className='profile-toogle'></img> :
-                <Nav.Link onClick={handleShow}>Login</Nav.Link>
-            }
-
-            {authState ?
-                <Offcanvas show={show} onHide={handleClose} placement='end' className="profile">
+    return (<>
+        {/* renders different offcanvas component and "icon" if the users is logged */}
+        {authState ?
+            <>
+                <img onClick={handleModalState} src={user.avatar_url} className='profile-toogle'></img>
+                <Offcanvas show={show} onHide={handleModalState} placement='end' className="profile">
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title>Profile</Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body className="profile-data">
                         <div className='profile-img'>
-                            <img onClick={handleShow} src={user.avatar_url} />
+                            <img onClick={handleModalState} src={user.avatar_url} />
                         </div>
                         <p><strong>Wellcome{user.name ? `, ${user.name.split(" ")[0]}` : ""}!</strong></p>
                         <ul>
                             <li>
-                                <a href="">Bookmarks</a>
+                                <a href="/bookmarks">Bookmarks</a>
                             </li>
                             <li>
-                                <a href="">Contribuitions</a>
+                                <a href="/contributions">Contribuitions</a>
                             </li>
                             <li>
                                 <a href="" onClick={() => {
@@ -76,21 +79,26 @@ export default function Profile() {
                             </li>
                         </ul>
                     </Offcanvas.Body>
-                </Offcanvas> :
-
-                <Offcanvas show={show} onHide={handleClose} placement='end' className="profile">
+                </Offcanvas>
+            </>
+            :
+            <>
+                <Nav.Link onClick={handleModalState}>Login</Nav.Link>
+                <Offcanvas show={show} onHide={handleModalState} placement='end' className="profile">
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title>Signin/Signup</Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body className="profile-data">
                         <div className='profile-img'>
-                            <img onClick={handleShow} src={PLACEHOLDERPIC} />
+                            <img onClick={handleModalState} src={PLACEHOLDERPIC} />
                         </div>
                         <p><strong>Wellcome</strong></p>
+                        {/* redirects user to oauth link */}
                         <Button variant="dark" href={import.meta.env.VITE_GITHUB_CLIENT}>GitHub Account</Button>
                     </Offcanvas.Body>
                 </Offcanvas>
-            }
-        </>
+            </>
+        }
+    </>
     );
 }

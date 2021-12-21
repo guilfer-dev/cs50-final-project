@@ -1,7 +1,3 @@
-//libraries
-import axios from "axios"
-import jwt from "jsonwebtoken"
-
 //models
 import Category from "../models/CategoryModel.js"
 
