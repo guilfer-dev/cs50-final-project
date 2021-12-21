@@ -47,21 +47,23 @@ export default function Profile({ authState, setAuthState }) {
             }
         })()
 
-    }, [])
+    }, [setAuthState])
+
+    console.log(process.env.REACT_APP_GITHUB_CLIENT)
 
 
     return (<>
         {/* renders different offcanvas component and "icon" if the users is logged */}
         {authState ?
             <>
-                <img onClick={handleModalState} src={user.avatar_url} className='profile-toogle'></img>
+                <img onClick={handleModalState} src={user.avatar_url} className='profile-toogle' alt="profile"></img>
                 <Offcanvas show={show} onHide={handleModalState} placement='end' className="profile">
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title>Profile</Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body className="profile-data">
                         <div className='profile-img'>
-                            <img onClick={handleModalState} src={user.avatar_url} />
+                            <img onClick={handleModalState} src={user.avatar_url} alt="profile" />
                         </div>
                         <p><strong>Wellcome{user.name ? `, ${user.name.split(" ")[0]}` : ""}!</strong></p>
                         <ul>
@@ -72,10 +74,10 @@ export default function Profile({ authState, setAuthState }) {
                                 <a href="/contributions">Contribuitions</a>
                             </li>
                             <li>
-                                <a href="" onClick={() => {
+                                <Button variant="danger py-0 mt-2" onClick={() => {
                                     localStorage.clear();
-                                    location.reload();
-                                }}>Exit</a>
+                                    window.location.reload();
+                                }}>Exit</Button>
                             </li>
                         </ul>
                     </Offcanvas.Body>
@@ -90,11 +92,11 @@ export default function Profile({ authState, setAuthState }) {
                     </Offcanvas.Header>
                     <Offcanvas.Body className="profile-data">
                         <div className='profile-img'>
-                            <img onClick={handleModalState} src={PLACEHOLDERPIC} />
+                            <img onClick={handleModalState} src={PLACEHOLDERPIC} alt="profile placeholder" />
                         </div>
                         <p><strong>Wellcome</strong></p>
                         {/* redirects user to oauth link */}
-                        <Button variant="dark" href={import.meta.env.VITE_GITHUB_CLIENT}>GitHub Account</Button>
+                        <Button variant="dark" href={process.env.REACT_APP_GITHUB_CLIENT}>GitHub Account</Button>
                     </Offcanvas.Body>
                 </Offcanvas>
             </>

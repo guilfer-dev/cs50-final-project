@@ -31,7 +31,7 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
         }
 
         setNumberOfVotes(data.votes || 0);
-    }, [votes, bookmarks])
+    }, [votes, bookmarks, data._id, data.votes])
 
     // change the state of the vote to the oposite
     async function castVote() {
@@ -86,6 +86,7 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
                     <div className="youtube-embeded">
                         {/* shows an embeded youtube player */}
                         <iframe src={`https://www.youtube-nocookie.com/embed/${data.video}`}
+                            title={data.title}
                             allowFullScreen
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

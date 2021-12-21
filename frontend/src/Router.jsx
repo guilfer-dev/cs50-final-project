@@ -90,7 +90,7 @@ export default function Router() {
             setShownSubCategories(subCategories);
             setFilteredSubCategories(subCategories);
         }
-    }, [categoryFilter, recommendations]);
+    }, [categoryFilter, recommendations, categories, subCategories]);
 
     // update recommendations based on the filter
     useEffect(() => {
@@ -100,13 +100,15 @@ export default function Router() {
                     filteredSubCategories.includes(e.subcategory)) {
                     return true;
                 }
+                else return false;
             } else if (filteredSubCategories.includes(e.subcategory)) {
                 return true;
             }
+            else return false;
         });
         setShownRecommendations(filteredRecommendation);
 
-    }, [filteredSubCategories, recommendations]);
+    }, [filteredSubCategories, recommendations, categoryFilter]);
 
     // filter subcategories
     function filterSubCategory(filter, index) {
@@ -126,7 +128,7 @@ export default function Router() {
     }
 
     return (
-        <BrowserRouter>
+        <BrowserRouter basename='/cs50-final-project'>
             {/* render navbar and  */}
             <NavBar states={{
                 setShowModal,

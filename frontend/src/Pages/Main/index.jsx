@@ -2,7 +2,7 @@
 import RecommendationCard from '../../components/RecommendationCard'
 
 // import styles
-import { Container, Alert, Card, Badge } from 'react-bootstrap';
+import { Container, Card, Badge } from 'react-bootstrap';
 import './styles.css'
 
 export default function Main({ states: {

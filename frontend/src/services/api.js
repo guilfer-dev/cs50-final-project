@@ -3,7 +3,7 @@ import axios from "axios"
 
 // create an api instance
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
+    baseURL: process.env.REACT_APP_API_URL
 });
 
 // intercepts everything that passes from the api and adds the token if it was found
