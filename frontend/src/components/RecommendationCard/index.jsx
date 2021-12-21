@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+// Source: https://stackoverflow.com/questions/42555450
+// For some reason, the youtube app was throwing constant errors and using a no-cookie version helps
 
+// libraries
+import { useEffect, useState } from "react";
 import { Card, Col, Alert } from 'react-bootstrap';
 
+// components
 import CardBreadCrumb from '../CardBreadCrumb'
 
-
-import "./styles.css"
+// api service
 import api from "../../services/api";
+
+// sytles
+import "./styles.css"
 
 export default function RecommendationCard({ data, votes, bookmarks }) {
 
@@ -15,6 +21,7 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
     const [bookmark, setBookmark] = useState(false);
     const [error, setError] = useState("");
 
+    // change how the votes and bookmarks are displayd if the user have voted for that recommendation before
     useEffect(() => {
         if (votes.includes(data._id)) {
             setOwnVote(true);
@@ -26,6 +33,7 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
         setNumberOfVotes(data.votes || 0);
     }, [votes, bookmarks])
 
+    // change the state of the vote to the oposite
     async function castVote() {
         try {
             await api.patch(`/recommendations/${data._id}`, {
@@ -44,6 +52,7 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
         }
     }
 
+    // change the state of the vote to the oposite
     async function castBookmark() {
         try {
             await api.patch(`/recommendations/${data._id}`, {
@@ -59,6 +68,7 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
 
     return (
 
+        // renders the card with all filed previously filled by some user
         <Card className="my-4">
             <Card.Header>
                 <CardBreadCrumb category={data.category.name} subcategory={data.subcategory} />
@@ -67,12 +77,14 @@ export default function RecommendationCard({ data, votes, bookmarks }) {
             <Card.Body>
                 {error && <Alert variant="danger" className="mt-2">{error}</Alert>}
                 <Col className="action-container">
+                    {/* change the color of the vote/bookmark based on the boolean value */}
                     <button className="material-icons upvote" style={{ color: ownVote ? "rgb(200, 170, 20)" : "black" }} onClick={castVote}>arrow_upward</button>
                     <span>{numberOfVotes}</span>
                     <button className="material-icons bookmark" style={{ color: bookmark ? "rgb(200, 170, 20)" : "black" }} onClick={castBookmark}>bookmark</button>
                 </Col>
                 <Col className="content-container">
                     <div className="youtube-embeded">
+                        {/* shows an embeded youtube player */}
                         <iframe src={`https://www.youtube-nocookie.com/embed/${data.video}`}
                             allowFullScreen
                             frameBorder="0"

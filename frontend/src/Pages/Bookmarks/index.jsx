@@ -1,7 +1,10 @@
+// libraries
+import { Container } from 'react-bootstrap';
+
+// componentes
 import RecommendationCard from '../../components/RecommendationCard'
 
 // import styles
-import { Container } from 'react-bootstrap';
 import './styles.css'
 
 export default function contribuitions({ states: {
@@ -11,6 +14,7 @@ export default function contribuitions({ states: {
 } }) {
 
   return (
+    //render bookmark page
     <>
       <Container>
         {bookmarks && recommendations

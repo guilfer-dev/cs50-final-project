@@ -13,6 +13,7 @@ export default function contribuitions({ states: {
 } }) {
 
   return (
+    // render contribution page
     <>
       <Container>
         {contributions && recommendations

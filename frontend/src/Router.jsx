@@ -19,6 +19,7 @@ import Bookmarks from './Pages/Bookmarks'
 import Contributions from './Pages/Contributions'
 
 export default function Router() {
+
     const [showModal, setShowModal] = useState(false);
     const [categories, setCategories] = useState([]);
     const [categoryFilter, setCategoryFilter] = useState("categories");
