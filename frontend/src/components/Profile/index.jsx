@@ -49,9 +49,6 @@ export default function Profile({ authState, setAuthState }) {
 
     }, [setAuthState])
 
-    console.log(process.env.REACT_APP_GITHUB_CLIENT)
-
-
     return (<>
         {/* renders different offcanvas component and "icon" if the users is logged */}
         {authState ?

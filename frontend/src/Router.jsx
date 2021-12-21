@@ -160,14 +160,14 @@ export default function Router() {
                         bookmarks
                     }} />
                 } />
-                <Route path="bookmarks" element={
+                <Route path="/bookmarks" element={
                     <Bookmarks states={{
                         recommendations,
                         votes,
                         bookmarks
                     }} />
                 } />
-                <Route path="contributions" element={
+                <Route path="/contributions" element={
                     <Contributions states={{
                         recommendations,
                         contributions,
