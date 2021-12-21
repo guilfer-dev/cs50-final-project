@@ -36,27 +36,7 @@ export default function Router() {
 
     // executes when page first loads
     useEffect(() => {
-
-        (async () => {
-            // get list of categories
-            const { data: categoriesFromAPI } = await api.get("/categories");
-            setCategories(categoriesFromAPI);
-
-            // get sucategories from every category
-            const allSubCategories = categoriesFromAPI.map(e => e.subcategories).flat();
-            setSubCategories(allSubCategories);
-
-            // set all subcategories to be displayed after the page loads
-            setShownSubCategories(allSubCategories);
-            setFilteredSubCategories(allSubCategories);
-
-            // get all recommendations from api and set them to be displayed after the page loads
-            const { data: recommendationFromAPI } = await api.get("/recommendations");
-            setRecommendations(recommendationFromAPI);
-            setShownRecommendations(recommendationFromAPI);
-        })();
-
-
+        refreshData();
     }, []);
 
     // gets activity (votes, contribution and bookmarks) whenever the recommendation list change
@@ -78,6 +58,8 @@ export default function Router() {
 
     // update  what categories are being filtered and list categories
     useEffect(() => {
+        refreshData();
+
         if (categoryFilter !== "categories") {
             const filteredCategory = recommendations.filter(e => e.category.name === categoryFilter);
             const filteredSubCategory = categories.filter(e => e.name === categoryFilter).map(e => e.subcategories).flat();
@@ -125,6 +107,25 @@ export default function Router() {
     // update subcategories if a new subcategory is introduced
     function updateSubcategories(newSubCategory) {
         setSubCategories([...subCategories, newSubCategory])
+    }
+
+    async function refreshData() {
+        // get list of categories
+        const { data: categoriesFromAPI } = await api.get("/categories");
+        setCategories(categoriesFromAPI);
+
+        // get sucategories from every category
+        const allSubCategories = categoriesFromAPI.map(e => e.subcategories).flat();
+        setSubCategories(allSubCategories);
+
+        // set all subcategories to be displayed after the page loads
+        setShownSubCategories(allSubCategories);
+        setFilteredSubCategories(allSubCategories);
+
+        // get all recommendations from api and set them to be displayed after the page loads
+        const { data: recommendationFromAPI } = await api.get("/recommendations");
+        setRecommendations(recommendationFromAPI);
+        setShownRecommendations(recommendationFromAPI);
     }
 
     return (

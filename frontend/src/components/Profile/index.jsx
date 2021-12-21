@@ -63,7 +63,7 @@ export default function Profile({ authState, setAuthState }) {
                         <div className='profile-img'>
                             <img onClick={handleModalState} src={user.avatar_url} alt="profile" />
                         </div>
-                        <p><strong>Wellcome{user.name ? `, ${user.name.split(" ")[0]}` : ""}!</strong></p>
+                        <p><strong>Welcome{user.name ? `, ${user.name.split(" ")[0]}` : ""}!</strong></p>
                         <ul>
                             <li>
                                 <Link to="/bookmarks">Bookmarks</Link>
@@ -92,7 +92,7 @@ export default function Profile({ authState, setAuthState }) {
                         <div className='profile-img'>
                             <img onClick={handleModalState} src={PLACEHOLDERPIC} alt="profile placeholder" />
                         </div>
-                        <p><strong>Wellcome</strong></p>
+                        <p><strong>Welcome</strong></p>
                         {/* redirects user to oauth link */}
                         <Button variant="dark" href={process.env.REACT_APP_GITHUB_CLIENT}>GitHub Account</Button>
                     </Offcanvas.Body>
