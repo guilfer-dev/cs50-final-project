@@ -37,7 +37,7 @@ export default function Router() {
     // executes when page first loads
     useEffect(() => {
         refreshData();
-    }, []);
+    }, [categoryFilter]);
 
     // gets activity (votes, contribution and bookmarks) whenever the recommendation list change
     useEffect(() => {
@@ -58,7 +58,6 @@ export default function Router() {
 
     // update  what categories are being filtered and list categories
     useEffect(() => {
-        refreshData();
 
         if (categoryFilter !== "categories") {
             const filteredCategory = recommendations.filter(e => e.category.name === categoryFilter);
