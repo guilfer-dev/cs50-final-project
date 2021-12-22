@@ -135,8 +135,8 @@ This folder have one file called "api.js", this file is responsible for simplify
 <br/>
 
 ## Final Thoughts
-It has been an incredible experience to make this project. All the decision making, design and creativity was put in test, as well as all the knowlege aquired during the course.
+It has been an incredible experience to make this project. All of my the decision making skills, design and creativity have been put on test, as well as all the knowledge aquired during the course.
 <br/>
-I can sure say that at this point, I have another point of how the computer works and CS50 paved the way for me to be a better programmer.
+I can sure say that now I have another point of view on how the computer works and CS50 paved the way for me to be a better programmer.
 <br/>
 I am very thankful for this journey!
