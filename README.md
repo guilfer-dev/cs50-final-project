@@ -4,6 +4,10 @@
 
 Video Demo: https://www.youtube.com/watch?v=Jzc2T4ac6F8
 <br/>
+Project repository: https://github.com/guilfer-dev/cs50-final-project
+<br/>
+Live demo: https://guilfer-dev.github.io/cs50-final-project/
+<br/>
 
 ---
 ## Motivation:
