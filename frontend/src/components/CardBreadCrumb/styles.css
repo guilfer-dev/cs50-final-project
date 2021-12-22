@@ -16,6 +16,7 @@
 
 .card-breadcrumb a {
     --bs-breadcrumb-divider: ">";
+    cursor: default;
     font-size: small;
     text-decoration: none;
     color: inherit;
@@ -24,6 +25,7 @@
 
 .current-breadcrum-location {
     font-size: small;
+    cursor: default;
     text-decoration: none;
     color: inherit;
     font-weight: 400;
